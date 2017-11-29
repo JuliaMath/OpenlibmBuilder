@@ -7,9 +7,13 @@ notifications:
   email: false
 git:
   depth: 99999999
+cache:
+  directories:
+    - downloads
+env:
+  global:
+    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
 sudo: required
-services:
-  - docker
 
 # Before anything else, get the latest versions of things
 before_script:
