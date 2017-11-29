@@ -24,6 +24,7 @@ deploy:
   api_key:
     # Note; this api_key is only valid for staticfloat/OpenlibmBuilder; you need
     # to make your own: https://docs.travis-ci.com/user/deployment/releases/
+    secure: p+YDmMZyC0lP/8sFryxn/RwuGKIldJjuBsd+S4dVe3gvxu+XtbWiLUJpqpL494iL8kj6jGqRa9af4wxygcNHuU99d5aOA/q7HAl6CufkHWmJr4L28LomSo8IZSH9McFcF6r49l3jrprVWUz6fi/6EaJgpyFfjkSq1vpUEcmnZTI79WcO7B1ONA8jngyK44r3nu0Wa9CacZGpnJe1WBMRGdiND5z+td4oUXfeMKl3JBwMvvUJBAxRPxe0Vo6Z6oc3I5wBzN4ZwORCh5O3Mlnnq6uauKo3C8Ey0++G631DxDRvG1YgD28czj0O30T6/sg3z7kFdwIan/YFNErIY4FS135vGkNGlmWelH0CQzZpA386+i98E5DCu9lwq27ZPdGCVVmc0fj+WK61KxiqnY/eJimmmR0dce/ig3xtWW6rQT7gVHTgEq9Qkc5fKav2JRM9qkFg+hJsDehvvJKp8VPYBWMBOAKCWfGCHVYWCSAYolSBwdRZR8i2r+4lmgr3C9NNWWrIUX5993Ok9J9Zw7X+VWLq/3h5T1hTsixNRkbpN9K6BVMNHxL7OvjJF0NcniD8BzkePcElzZ90j2tcSu+lbp8w3LvgBCsJUiCKp5dDGUy5iOWMyqc4N0ec/9VUgEZuXyh5bYxcBv/7fSTiPsqHK6BrA+05tvLR18VRSms8AOg=
   file_glob: true
   file: products/*.tar.gz
   skip_cleanup: true
