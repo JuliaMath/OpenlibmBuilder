@@ -21,6 +21,7 @@ platform_data = Dict(
     Windows(:i686)     => ("ARCH=i686"),
 )
 
+product_hashes = Dict()
 for platform in keys(platform_data)
     platform_flags = platform_data[platform]
 
@@ -36,6 +37,7 @@ for platform in keys(platform_data)
         LibraryProduct(prefix, "libopenlibm")
     ]
 
-    autobuild(pwd(), "openlibm", [platform], sources, script, products)
+    autobuild(pwd(), "openlibm", [platform], sources, script, products, product_hashes)
 end
 
+print_buildjl(product_hashes)
