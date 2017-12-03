@@ -9,35 +9,33 @@ sources = [
     "07dcc5f59e695fb45167c81406b8e201c5ad91ebf24e3e55ae13298670910cfd",
 ]
 
-common_flags="prefix=\$DESTDIR"
-platform_data = Dict(
-    Linux(:x86_64)     => ("ARCH=x86_64"),
-    Linux(:i686)       => ("ARCH=i686"),
-    Linux(:aarch64)    => ("ARCH=aarch64"),
-    Linux(:armv7l)     => ("ARCH=arm"),
-    Linux(:ppc64le)    => ("ARCH=ppc64le"),
-    MacOS()            => ("ARCH=x86_64"),
-    Windows(:x86_64)   => ("ARCH=x86_64"),
-    Windows(:i686)     => ("ARCH=i686"),
-)
+script = raw"""
+# Install into output
+flags="prefix=${DESTDIR}"
 
-product_hashes = Dict()
-for platform in keys(platform_data)
-    platform_flags = platform_data[platform]
+# Build ARCH from ${target}
+flags="${flags} ARCH=${target%-*-*}"
 
-    flags = "$(platform_flags) $(common_flags)"
+# Enter the funzone
+cd ${WORKSPACE}/srcdir/openlibm-0.5.5
 
-    script = """
-    cd \${WORKSPACE}/srcdir/openlibm-0.5.5
-    make $(flags) -j\${nproc}
-    make $(flags) install
-    """
+# Build the library
+make ${flags} -j${nproc}
 
-    products = prefix -> [
-        LibraryProduct(prefix, "libopenlibm")
-    ]
+# Install the library
+make ${flags} install
+"""
 
-    autobuild(pwd(), "openlibm", [platform], sources, script, products, product_hashes)
+products = prefix -> [
+    LibraryProduct(prefix, "libopenlibm")
+]
+
+# Choose which platforms to build for; if we've got an argument use that one,
+# otherwise default to just building all of them!
+build_platforms = supported_platforms()
+if length(ARGS) > 0
+    build_platforms = platform_key.(split(ARGS[1], ","))
 end
+info("Building for $(join(triplet.(build_platforms), ", "))")
 
-print_buildjl(product_hashes)
+autobuild(pwd(), "openlibm", build_platforms, sources, script, products)
