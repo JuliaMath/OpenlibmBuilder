@@ -39,7 +39,7 @@ products = prefix -> [
 
 # Choose which platforms to build for; if we've got an argument use that one,
 # otherwise default to just building all of them!
-build_platforms = supported_platforms()
+build_platforms = platforms
 if length(ARGS) > 0
     build_platforms = platform_key.(split(ARGS[1], ","))
 end
