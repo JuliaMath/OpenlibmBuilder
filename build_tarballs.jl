@@ -1,8 +1,8 @@
 using BinaryBuilder
 
 sources = [
-    "https://github.com/JuliaLang/openlibm/archive/v0.5.5.tar.gz" =>
-    "07dcc5f59e695fb45167c81406b8e201c5ad91ebf24e3e55ae13298670910cfd",
+    "https://github.com/JuliaMath/openlibm/archive/v0.6.0.tar.gz" =>
+    "d45439093d1fd15e2ac3acf69955e462401c7a160d3330256cb4a86c51bdae28",
 ]
 
 script = raw"""
