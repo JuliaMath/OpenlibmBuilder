@@ -1,6 +1,6 @@
 using BinaryBuilder
 
-name = "OpenLibm"
+name = "Openlibm"
 version = v"0.6.0"
 sources = [
     "https://github.com/JuliaMath/openlibm/archive/v0.6.0.tar.gz" =>
