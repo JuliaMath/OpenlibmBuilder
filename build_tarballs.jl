@@ -1,8 +1,11 @@
 using BinaryBuilder
 
+name = "OpenLibm"
+version = v"0.6.0"
 sources = [
     "https://github.com/JuliaMath/openlibm/archive/v0.6.0.tar.gz" =>
     "d45439093d1fd15e2ac3acf69955e462401c7a160d3330256cb4a86c51bdae28",
+    "./bundled",
 ]
 
 script = raw"""
@@ -27,7 +30,10 @@ make ${flags} -j${nproc}
 make ${flags} install
 """
 
+# These are the platforms we will build for by default, unless further
+# platforms are passed in on the command line.
 platforms = supported_platforms()
+platforms = expand_gcc_versions(platforms)
 
 products = prefix -> [
     LibraryProduct(prefix, "libopenlibm", :libopenlibm)
@@ -36,4 +42,5 @@ products = prefix -> [
 dependencies = [
 ]
 
-build_tarballs(ARGS, "Openlibm", sources, script, platforms, products, dependencies)
+# Build the tarballs, and possibly a `build.jl` as well.
+build_tarballs(ARGS, name, version, sources, script, platforms, products, dependencies)
