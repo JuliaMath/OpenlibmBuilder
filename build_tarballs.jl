@@ -12,21 +12,24 @@ script = raw"""
 cd ${WORKSPACE}/srcdir/openlibm-*
 
 # Install into output
-flags="prefix=${prefix}"
+flags=("prefix=${prefix}")
 
 # Build ARCH from ${target}
-flags="${flags} ARCH=${target%-*-*}"
+flags+=("ARCH=${target%-*-*}")
 
 # Openlibm build system doesn't recognize our windows cross compilers properly
 if [[ ${target} == *mingw* ]]; then
-    flags="${flags} OS=WINNT"
+    flags+=("OS=WINNT")
 fi
 
+# Add `CC` override, since Openlibm seems to think it knows best:
+flags+=("CC=$CC")
+
 # Build the library
-make ${flags} -j${nproc}
+make "${flags[@]}" -j${nproc}
 
 # Install the library
-make ${flags} install
+make "${flags[@]}" install
 """
 
 # These are the platforms we will build for by default, unless further
